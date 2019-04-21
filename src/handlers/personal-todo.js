@@ -10,6 +10,7 @@ exports.addPersonalTodo = async (req, res) => {
             fire.fbase.database().ref('todos/personal/' + auth.user_id).push({
                     title: todoObj.title,
                     todo: todoObj.todo,
+                    isDeleted : false,
                     status: "pending",
                     createdAt: todoObj.time,
                     updatedAt: todoObj.time
@@ -84,7 +85,7 @@ exports.deletePersonalTodo = async (req, res) => {
       if (auth) {
         fire.fbase.database().ref('todos/personal/' + auth.user_id + '/' + taskId)
           .set({
-            status: "deleted",
+            isDeleted: true,
             updatedAt: new Date().getTime()
           })
           .then(todo => {
@@ -100,4 +101,4 @@ exports.deletePersonalTodo = async (req, res) => {
        res.send("cant authenticate user")        
       }
     });
-  };
+};
