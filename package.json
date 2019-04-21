@@ -21,8 +21,8 @@
   ],
   "dependencies": {
     "fastify": "^2.3.0",
-     "firebase": "^5.8.2",
-    "firebase-admin": "^7.3.0",
+    "firebase": "^5.8.2",
+    "firebase-admin": "^7.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
@@ -30,10 +30,11 @@
     "ava": "latest",
     "codecov": "latest",
     "cross-env": "latest",
-    "eslint": "latest",
+    "eslint": "^5.16.0",
     "eslint-config-prettier": "latest",
     "eslint-config-xo-lass": "latest",
     "eslint-plugin-prettier": "latest",
+    "eslint-plugin-promise": "^4.1.1",
     "fixpack": "latest",
     "husky": "latest",
     "lint-staged": "latest",
