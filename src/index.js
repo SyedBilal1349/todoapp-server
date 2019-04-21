@@ -46,3 +46,4 @@ const start = async () => {
 start()             // Starts the Server 
 
 
+module.exports = start
