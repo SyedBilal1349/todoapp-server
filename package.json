@@ -22,7 +22,8 @@
   "dependencies": {
     "fastify": "^2.3.0",
     "firebase": "^5.8.2",
-    "firebase-admin": "^7.3.0"
+    "firebase-admin": "^7.3.0",
+    "nodemon": "^1.18.11"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
@@ -62,11 +63,9 @@
   "lint-staged": {
     "linters": {
       "*.js": [
-        "xo --fix",
         "git add"
       ],
       "*.md": [
-        "remark . -qfo",
         "git add"
       ],
       "package.json": [
@@ -93,10 +92,10 @@
   "scripts": {
     "ava": "cross-env NODE_ENV=test ava",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "xo && remark . -qfo",
     "nyc": "cross-env NODE_ENV=test nyc ava",
-    "test": "npm run lint && npm run ava",
-    "test-coverage": "npm run lint && npm run nyc"
+    "test": "npm run ava",
+    "test-coverage": "npm run nyc",
+    "start" : "nodemon src/index.js"
   },
   "xo": {
     "prettier": true,

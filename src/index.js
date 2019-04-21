@@ -1,4 +1,4 @@
-//Imports
+// Imports
 const fastify = require('fastify')({ logger: true })
 const userHandler = require('./handlers/user')
 // const authHandler = require('./handlers/auth')
@@ -6,17 +6,17 @@ const userHandler = require('./handlers/user')
 // const stodoHandler = require('./handlers/sharedTodo')
 
 
-//Auth Routes
+// Auth Routes
 // fastify.post('/auth/login',authHandler.userLogin)
 
 // User Routes
 fastify.post('/user/register',userHandler.registerUser)
-fastify.post('/reset/password',userHandler.registerUser)
+fastify.post('/reset/password',userHandler.resetPassword)
 
-//Personal Todolist Routes
+// Personal Todolist Routes
 
 
-//Shared Todolist Routes
+// Shared Todolist Routes
 
 
 
