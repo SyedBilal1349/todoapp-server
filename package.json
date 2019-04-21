@@ -23,7 +23,8 @@
     "fastify": "^2.3.0",
     "firebase": "^5.8.2",
     "firebase-admin": "^7.3.0",
-    "nodemon": "^1.18.11"
+    "nodemon": "^1.18.11",
+    "ua-parser-js": "^0.7.19"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
@@ -95,7 +96,7 @@
     "nyc": "cross-env NODE_ENV=test nyc ava",
     "test": "npm run ava",
     "test-coverage": "npm run nyc",
-    "start" : "nodemon src/index.js"
+    "start": "nodemon src/index.js"
   },
   "xo": {
     "prettier": true,

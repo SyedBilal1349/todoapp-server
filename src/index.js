@@ -1,20 +1,23 @@
 // Imports
 const fastify = require('fastify')({ logger: true })
 const userHandler = require('./handlers/user')
-// const authHandler = require('./handlers/auth')
-// const ptodoHandler = require('./handlers/personalTodo')
-// const stodoHandler = require('./handlers/sharedTodo')
+const authHandler = require('./handlers/auth')
+const ptodoHandler = require('./handlers/personal-todo')
+const stodoHandler = require('./handlers/shared-todo')
 
 
 // Auth Routes
-// fastify.post('/auth/login',authHandler.userLogin)
+fastify.post('/auth/login',authHandler.userLogin)
 
 // User Routes
 fastify.post('/user/register',userHandler.registerUser)
 fastify.post('/reset/password',userHandler.resetPassword)
 
 // Personal Todolist Routes
-
+fastify.post('/personaltodo/', ptodoHandler.addPersonalTodo)
+fastify.get('/personaltodo/', ptodoHandler.fetchPersonalTodo)
+fastify.put('/personaltodo', ptodoHandler.updatePersonalTodo)
+fastify.delete('/personaltodo', ptodoHandler.deletePersonalTodo)
 
 // Shared Todolist Routes
 
