@@ -44,3 +44,24 @@ exports.userLogin = async(req,res)=>{
     })
     
 }
+
+exports.getUserTokens = () => {
+    return new Promise((resolve, reject) => {
+      const tokens = [];
+      fire.fbase.database().ref('users').on('value', function(snapshot) {
+          const users = snapshot.val();
+          Object.keys(users).forEach(item => {
+            const dev = users[item];
+            Object.keys(dev).forEach(item => {
+              tokens.push(dev[item].token);
+            });
+          });
+          if(tokens)
+          resolve(tokens);
+          else
+          resolve(null)
+        });
+    });
+ 
+}
+
