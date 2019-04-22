@@ -1,6 +1,6 @@
 const test = require('ava');
-const request = require('supertest')
-const app = require('../src/index')
+const request = require('supertest')('https://localhost:3000')
+// const app = require('../src/index')
 
 
 const Script = require('..');
@@ -31,7 +31,7 @@ test('sets a default name', t => {
 test('User Registration', async t=>{
   const email = 'test123@mail.com'
   const password = 'test123'
-  const response = await request(app)
+  const response = await request
   .post('/user/register').send({email,password})
   t.is(response.status, 200)
   t.is(response.body.message, 'User Registered Successfully')
@@ -39,7 +39,7 @@ test('User Registration', async t=>{
 
 test('Reset Password', async t=>{
   const email = 'test123@mail.com'
-  const response = await request(app)
+  const response = await request
   .post('/reset/password').send({email})
   t.is(response.status, 200)
   t.is(response.body.message, 'Reset link sent successfully')

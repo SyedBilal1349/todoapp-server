@@ -6,9 +6,9 @@ const authToken = require("../handlers/auth")
 
 exports.addSharedTodo = async (req, res) => {
     const obj = req.body;
-    authToken.authenticateToken(req.headers.token).then(userObj => {
+    authToken.authenticateToken(req.headers.token).then(userObj => {  // Authenticate User
         if (userObj) {
-            fire.fbase.database().ref('todos/shared').push({
+            fire.fbase.database().ref('todos/shared').push({          // Post data in database
                 title: obj.title,
                 todo: obj.todo,
                 status: "pending",
@@ -18,7 +18,7 @@ exports.addSharedTodo = async (req, res) => {
             })
                 .then(todo => {
                     if (todo) {
-                        fcm.sendNotification(userObj.email + " " +'added a todo', 'Todo', {});
+                        fcm.sendNotification(userObj.email + " " +'added a todo', 'Todo', {});  // Sends Notification to all connected devices
                         res.send('todo added successfully')
                     }
                     else {
@@ -37,12 +37,12 @@ exports.addSharedTodo = async (req, res) => {
 };
 
 exports.fetchSharedTodo = async (req, res) => {
-    authToken.authenticateToken(req.headers.token).then(auth => {
+    authToken.authenticateToken(req.headers.token).then(auth => {    // Authenticate User
       if (auth) {
-        fire.fbase.database().ref('todos/shared/').on('value', function(snapshot) {
+        fire.fbase.database().ref('todos/shared/').on('value', function(snapshot) {   // fetch all the objects from database
             const data = snapshot.val();
             const todos = {};
-            Object.keys(data).forEach(item => {
+            Object.keys(data).forEach(item => {         // Loop through data array to make active todos objects
               if (data[item].status == "active") {
                 todos[item] = data[item];
               }
@@ -60,9 +60,9 @@ exports.fetchSharedTodo = async (req, res) => {
 
 exports.updateSharedTodo = async (req, res) => {
     const obj = req.body;
-    authToken.authenticateToken(req.headers.token).then(auth => {
+    authToken.authenticateToken(req.headers.token).then(auth => {   // Authenticate User
       if (auth) {
-        fire.fbase.database().ref('todos/shared/' + obj.id)
+        fire.fbase.database().ref('todos/shared/' + obj.id)     // Update the todo with the given Id
           .set({
             title: obj.title,
             todo: obj.todo,
@@ -71,7 +71,7 @@ exports.updateSharedTodo = async (req, res) => {
           })
           .then(todo => {
           if(todo){
-          fcm.sendNotification(auth.email + " " +'updated a todo' + " " + obj.id, 'Todo', {});
+          fcm.sendNotification(auth.email + " " +'updated a todo' + " " + obj.id, 'Todo', {});  // Send notification to all connected devices
           res.send("todo updated")
           }
           else
@@ -89,9 +89,9 @@ exports.updateSharedTodo = async (req, res) => {
 exports.deleteSharedTodo = async (req, res) => {
     const body = req.body;
     const taskId = body.id
-    authToken.authenticateToken(req.headers.token).then(auth => {
+    authToken.authenticateToken(req.headers.token).then(auth => { // Authenticate User
       if (auth) {
-        fire.fbase.database().ref('todos/shared/' + taskId)
+        fire.fbase.database().ref('todos/shared/' + taskId) // Delete the task with the given Id
           .set({
             isDeleted: true,
             updatedAt: new Date().getTime()
@@ -99,7 +99,7 @@ exports.deleteSharedTodo = async (req, res) => {
           .then(todo => {
             if(todo)
             {
-            fcm.sendNotification(auth.email + " " +'deleted a todo' + " " + obj.id, 'Todo', {});
+            fcm.sendNotification(auth.email + " " +'deleted a todo' + " " + obj.id, 'Todo', {});  // Sends notification to all connected devices
             res.send("Todo deleted with success")
             }
             else

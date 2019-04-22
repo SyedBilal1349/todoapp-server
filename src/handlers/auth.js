@@ -4,7 +4,7 @@ const admin = require('../firebase/index')
 
 exports.authenticateToken = (token) =>{
     return new Promise((resolve,reject)=>{
-        admin.fbadmin.auth().verifyIdToken(token).then(auth=>{
+        admin.fbadmin.auth().verifyIdToken(token).then(auth=>{  // Firebase token verification method
             if(auth){
                 resolve(auth)
             }
@@ -23,9 +23,9 @@ exports.userLogin = async(req,res)=>{
     const email = userObj.email;
     const password = userObj.password;
     const token = userObj.token;
-    const dev = new UAParser(request.headers['user-agent']);
-    fire.fbase.auth().signInWithEmailAndPassword(email, password).then(user => {
-      fire.fbase.database().ref('users/' + user.user.uid + '/' + dev.getOS().name)
+    const dev = new UAParser(request.headers['user-agent']);  // library used to get device info
+    fire.fbase.auth().signInWithEmailAndPassword(email, password).then(user => {  // Firebase login method
+      fire.fbase.database().ref('users/' + user.user.uid + '/' + dev.getOS().name)  //  dev.getOs().name gets the device for multi device login
           .set({
             token: token
           })
@@ -45,14 +45,15 @@ exports.userLogin = async(req,res)=>{
     
 }
 
+// Method to fetch All tokens of the connected devices
 exports.getUserTokens = () => {
     return new Promise((resolve, reject) => {
       const tokens = [];
-      fire.fbase.database().ref('users').on('value', function(snapshot) {
+      fire.fbase.database().ref('users').on('value', function(snapshot) { // Gets all the users
           const users = snapshot.val();
-          Object.keys(users).forEach(item => {
+          Object.keys(users).forEach(item => {  
             const dev = users[item];
-            Object.keys(dev).forEach(item => {
+            Object.keys(dev).forEach(item => {  // loop through user array to fetch tokens
               tokens.push(dev[item].token);
             });
           });

@@ -1,3 +1,4 @@
+// Imports
 const fire = require('../firebase/index')
 
 exports.registerUser = async (req, res) => {
@@ -5,7 +6,7 @@ exports.registerUser = async (req, res) => {
   const email = userObj.email
   const password = userObj.password
   if (email && password) {
-    fire.fbase.auth().createUserWithEmailAndPassword(email, password).then(user => {
+    fire.fbase.auth().createUserWithEmailAndPassword(email, password).then(user => {  // Firebase sign in method
       if (user) {
         res.send(user)
       }
@@ -23,7 +24,7 @@ exports.resetPassword = async (req, res) => {
   const userObj = req.body
   const email = userObj.email
   if (email) {
-    fire.fbase.auth().sendPasswordResetEmail(email).then(link => {
+    fire.fbase.auth().sendPasswordResetEmail(email).then(link => {   // Firebase reset password method
       if (link) {
         res.send("Password reset link sent")
       }
