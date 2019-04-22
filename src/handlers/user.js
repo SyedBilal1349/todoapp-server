@@ -22,7 +22,6 @@ exports.registerUser = async (req, res) => {
 exports.resetPassword = async (req, res) => {
   const userObj = req.body
   const email = userObj.email
-  console.log(email)
   if (email) {
     fire.fbase.auth().sendPasswordResetEmail(email).then(link => {
       if (link) {
@@ -35,6 +34,5 @@ exports.resetPassword = async (req, res) => {
   }
   else {
     res.send("please provide email to reset password")
-
   }
 }
