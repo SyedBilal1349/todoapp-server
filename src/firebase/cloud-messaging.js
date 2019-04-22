@@ -1,11 +1,13 @@
+// Imports
 const FCM = require('fcm-node');
 const tk = require('../handlers/auth')
 const serverKey = 'AAAADES0PLk:APA91bEyKg0fBfMlN7scA1aY698562h-XtQRSLM_ocgySTXz9T9bh36BqzTJ6ZXfK8r-zdtpavlnm58xgYpCej0qSuOGVKo9OJjNpuUUFRTfKVPPXKUqMvCpvLLjYl_VAx1mpZ0Uig2x'
 const fcm = new FCM(serverKey);
 
 
+// Send Notification Method
 exports.sendNotification = async ( title, body , data) => {
-    tk.getUserTokens().then(tokens=>{
+    tk.getUserTokens().then(tokens=>{               // Get all user tokens
     if (tokens) {
       tokens.forEach(token => {
         const message = {
@@ -16,7 +18,7 @@ exports.sendNotification = async ( title, body , data) => {
           },
           data : data
         };
-        fcm.send(message, function(err, response) {
+        fcm.send(message, function(err, response) {   // Send notification
           if (err) {
             console.log('Something has gone wrong!');
           } else {

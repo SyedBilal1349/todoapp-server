@@ -1,7 +1,8 @@
+// Imports
 const fire = require('../firebase/index')
 const authToken = require("../handlers/auth")
 
-
+// Add Todo 
 exports.addPersonalTodo = async (req, res) => {
     const todoObj = req.body;
     const { token } = req.headers;
@@ -30,6 +31,7 @@ exports.addPersonalTodo = async (req, res) => {
     });
 };
 
+// Fetch All Todos of User
 exports.fetchPersonalTodo = async (req, res) => { 
     authToken.authenticateToken(req.headers.token).then(auth => {       // Authenticate User
       if (auth) {
@@ -52,6 +54,7 @@ exports.fetchPersonalTodo = async (req, res) => {
     });
 };
 
+// Update Todo
 exports.updatePersonalTodo = async (req, res) => {
     const obj = req.body;
     authToken.authenticateToken(req.headers.token).then(auth => { // Authenticate User
@@ -78,6 +81,7 @@ exports.updatePersonalTodo = async (req, res) => {
     });
 };
 
+// Delete Todo
 exports.deletePersonalTodo = async (req, res) => {
     const body = req.body;
     const taskId = body.id

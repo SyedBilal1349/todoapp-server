@@ -1,9 +1,10 @@
+// Imports
 const fire = require('../firebase/index')
 const fcm = require('../firebase/cloud-messaging')
 const authToken = require("../handlers/auth")
 
 
-
+// Add Collaborative Todo
 exports.addSharedTodo = async (req, res) => {
     const obj = req.body;
     authToken.authenticateToken(req.headers.token).then(userObj => {  // Authenticate User
@@ -36,6 +37,7 @@ exports.addSharedTodo = async (req, res) => {
     });
 };
 
+// Fetch All Collaborative Todo
 exports.fetchSharedTodo = async (req, res) => {
     authToken.authenticateToken(req.headers.token).then(auth => {    // Authenticate User
       if (auth) {
@@ -58,6 +60,7 @@ exports.fetchSharedTodo = async (req, res) => {
     });
 };
 
+// Update Collaborative Todo
 exports.updateSharedTodo = async (req, res) => {
     const obj = req.body;
     authToken.authenticateToken(req.headers.token).then(auth => {   // Authenticate User
@@ -86,6 +89,7 @@ exports.updateSharedTodo = async (req, res) => {
     });
 };
 
+// Delete Collaborative Todo
 exports.deleteSharedTodo = async (req, res) => {
     const body = req.body;
     const taskId = body.id

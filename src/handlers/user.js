@@ -1,6 +1,7 @@
 // Imports
 const fire = require('../firebase/index')
 
+// User Registration
 exports.registerUser = async (req, res) => {
   const userObj = req.body
   const email = userObj.email
@@ -20,6 +21,7 @@ exports.registerUser = async (req, res) => {
   }
 }
 
+// Reset Password Through Email
 exports.resetPassword = async (req, res) => {
   const userObj = req.body
   const email = userObj.email

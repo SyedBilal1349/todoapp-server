@@ -1,7 +1,9 @@
+// Imports
 const UAParser = require('ua-parser-js');
 const fire = require('../firebase/index')
 const admin = require('../firebase/index')
 
+// Method for token authentication
 exports.authenticateToken = (token) =>{
     return new Promise((resolve,reject)=>{
         admin.fbadmin.auth().verifyIdToken(token).then(auth=>{  // Firebase token verification method
@@ -18,6 +20,7 @@ exports.authenticateToken = (token) =>{
        })
 }
 
+// Login method
 exports.userLogin = async(req,res)=>{
     const userObj = req.body
     const email = userObj.email;
